@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ELÄINHERÄTYS — Animal Mimicry Alarm Clock</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<main class="stage">
+
+  <header class="masthead">
+    <h1>ELÄINHERÄTYS</h1>
+    <p class="tagline">Animal Mimicry Alarm Clock</p>
+    <p class="credits">by vwh &amp; WillMcfly</p>
+  </header>
+
+  <!-- ===================== IDLE / SETTING ===================== -->
+  <section id="view-set" class="view">
+    <div class="clock-face">
+      <div id="clock-now" class="clock-now">--:--</div>
+      <p class="clock-sub">The time is what it is.</p>
+    </div>
+
+    <div class="alarm-set">
+      <label for="alarm-time">Herätys / alarm</label>
+      <input type="time" id="alarm-time" value="07:00" />
+      <button id="btn-arm" class="btn">Set the alarm</button>
+    </div>
+
+    <p class="deadpan">
+      When the alarm sounds, the machine will choose an animal.
+      You must become that animal before it will stop.
+      This is non-negotiable.
+    </p>
+  </section>
+
+  <!-- ===================== ARMED ===================== -->
+  <section id="view-armed" class="view hidden">
+    <div class="armed-card">
+      <p class="armed-big">The alarm is set for <span id="armed-time">07:00</span>.</p>
+      <p class="deadpan">You may now sleep, if sleep comes to you.</p>
+      <button id="btn-disarm" class="btn btn-quiet">Take it back</button>
+    </div>
+  </section>
+
+  <!-- ===================== RINGING / SLOT ===================== -->
+  <section id="view-ring" class="view hidden">
+    <p class="ring-banner">HYVÄÄ HUOMENTA. The machine is deciding.</p>
+
+    <div class="slot-machine" id="slot-machine">
+      <div class="reels">
+        <div class="reel" id="reel-0"><div class="reel-strip"></div></div>
+        <div class="reel" id="reel-1"><div class="reel-strip"></div></div>
+        <div class="reel" id="reel-2"><div class="reel-strip"></div></div>
+      </div>
+      <div class="payline" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- ===================== MIMIC ===================== -->
+  <section id="view-mimic" class="view hidden">
+    <div class="target-card">
+      <div class="target-emoji" id="target-emoji">🐺</div>
+      <h2 id="target-name">Wolf</h2>
+      <p class="target-fi" id="target-fi">Susi</p>
+      <p class="target-instruction" id="target-instruction"></p>
+    </div>
+
+    <div class="verifier">
+      <div class="progress-outer">
+        <div class="progress-inner" id="mimic-progress"></div>
+      </div>
+      <p class="verifier-status" id="verifier-status">Listening…</p>
+      <p class="verifier-pitch" id="verifier-pitch"></p>
+    </div>
+
+    <button id="btn-giveup" class="btn btn-quiet">I cannot do this animal (hold)</button>
+  </section>
+
+  <!-- ===================== DONE ===================== -->
+  <section id="view-done" class="view hidden">
+    <div class="done-card">
+      <p class="done-big" id="done-headline">The alarm has stopped.</p>
+      <p class="deadpan" id="done-line">Your performance was adequate. Go and have your coffee. It will not help, but have it anyway.</p>
+      <button id="btn-again" class="btn">Set another alarm</button>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>Eläinherätys does not forgive. Eläinherätys does not forget.</span>
+  </footer>
+
+</main>
+
+<script src="src/mimic.js"></script>
+<script src="src/audio.js"></script>
+<script src="src/slot.js"></script>
+<script src="src/main.js"></script>
+</body>
+</html>

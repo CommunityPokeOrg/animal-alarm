@@ -1,0 +1,11 @@
+{
+  "name": "animal-alarm",
+  "version": "1.0.0",
+  "description": "ELÄINHERÄTYS — Animal Mimicry Alarm Clock. Finnish gloom, three reels, six animals.",
+  "private": true,
+  "scripts": {
+    "check": "node --check src/mimic.js && node --check src/audio.js && node --check src/slot.js && node --check src/main.js",
+    "test": "node tests/mimic.test.js",
+    "serve": "python3 -m http.server 8000"
+  }
+}

@@ -1,0 +1,265 @@
+/* ELÄINHERÄTYS — Finnish gloom. Tobacco, ash, faded teal, old paper. */
+
+:root {
+  --paper: #d8cfbf;
+  --paper-dark: #c9bfae;
+  --ink: #2b2620;
+  --ink-soft: #4a4239;
+  --tobacco: #6b4f35;
+  --ash: #8c8578;
+  --teal: #4e6b66;
+  --rust: #8a4b32;
+  --shadow: #b3a894;
+  --font: "Courier New", Courier, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* faint film grain / vignette */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, transparent 55%, rgba(43, 38, 32, 0.28) 100%),
+    repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0 2px, transparent 2px 4px);
+  z-index: 10;
+}
+
+.stage {
+  width: min(680px, 92vw);
+  padding: 2rem 1rem 3rem;
+  text-align: center;
+}
+
+/* ---------- masthead ---------- */
+.masthead h1 {
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  letter-spacing: 0.35em;
+  font-weight: 700;
+  color: var(--ink);
+}
+.tagline {
+  margin-top: 0.4rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+.credits {
+  margin-top: 0.25rem;
+  font-size: 0.7rem;
+  color: var(--ash);
+  font-style: italic;
+}
+
+.view { margin-top: 2.5rem; }
+.hidden { display: none !important; }
+
+/* ---------- clock / set view ---------- */
+.clock-now {
+  font-size: clamp(3rem, 10vw, 5rem);
+  letter-spacing: 0.15em;
+  color: var(--ink);
+}
+.clock-sub { color: var(--ash); font-size: 0.8rem; margin-top: 0.3rem; }
+
+.alarm-set {
+  margin-top: 2rem;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.alarm-set label { font-size: 0.85rem; color: var(--ink-soft); }
+.alarm-set input[type="time"] {
+  font-family: var(--font);
+  font-size: 1.2rem;
+  padding: 0.4rem 0.8rem;
+  background: var(--paper-dark);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 2px;
+}
+
+.btn {
+  font-family: var(--font);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  padding: 0.55rem 1.3rem;
+  background: var(--ink);
+  color: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 2px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.btn:hover { background: var(--tobacco); border-color: var(--tobacco); }
+.btn:active { transform: translateY(1px); }
+.btn-quiet {
+  background: transparent;
+  color: var(--ink-soft);
+  border-color: var(--ash);
+}
+.btn-quiet:hover { background: var(--paper-dark); color: var(--ink); }
+.btn-quiet.armed-hold { border-color: var(--rust); color: var(--rust); }
+
+.deadpan {
+  margin-top: 2rem;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  max-width: 46ch;
+  margin-left: auto;
+  margin-right: auto;
+  font-style: italic;
+}
+
+/* ---------- armed ---------- */
+.armed-card {
+  border: 2px solid var(--ink);
+  padding: 2.5rem 1.5rem;
+  background: var(--paper-dark);
+  box-shadow: 6px 6px 0 var(--shadow);
+}
+.armed-big { font-size: 1.15rem; }
+#armed-time { font-weight: 700; }
+.armed-card .btn { margin-top: 1.5rem; }
+
+/* ---------- slot machine ---------- */
+.ring-banner {
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  color: var(--rust);
+  animation: grimace 0.9s steps(2) infinite;
+}
+@keyframes grimace { 50% { opacity: 0.45; } }
+
+.slot-machine {
+  margin: 2rem auto 0;
+  width: min(430px, 88vw);
+  padding: 1.4rem 1rem 1.8rem;
+  background: linear-gradient(180deg, #7a6a55, #5d5041);
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  box-shadow: 8px 8px 0 var(--shadow);
+  position: relative;
+}
+.reels {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+}
+.reel {
+  width: 30%;
+  height: 110px;
+  overflow: hidden;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  position: relative;
+}
+.reel-strip {
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  transition: none;
+}
+.reel-symbol {
+  height: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6rem;
+  line-height: 1;
+}
+.reel-symbol small {
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: 0.3rem;
+}
+.reel.stopped .reel-symbol { animation: thud 0.18s ease-out; }
+@keyframes thud { 0% { transform: scale(1.15); } 100% { transform: scale(1); } }
+.payline {
+  position: absolute;
+  left: 4%; right: 4%; top: 50%;
+  height: 0;
+  border-top: 2px dashed rgba(138, 75, 50, 0.55);
+  pointer-events: none;
+}
+
+/* ---------- mimic ---------- */
+.target-card {
+  border: 2px solid var(--ink);
+  background: var(--paper-dark);
+  padding: 1.6rem 1rem;
+  box-shadow: 6px 6px 0 var(--shadow);
+}
+.target-emoji { font-size: 4rem; }
+.target-card h2 {
+  margin-top: 0.4rem;
+  font-size: 1.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.target-fi { color: var(--ash); font-style: italic; font-size: 0.85rem; }
+.target-instruction {
+  margin-top: 0.9rem;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+
+.verifier { margin-top: 1.8rem; }
+.progress-outer {
+  height: 22px;
+  border: 2px solid var(--ink);
+  background: var(--paper-dark);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-inner {
+  height: 100%;
+  width: 0%;
+  background: repeating-linear-gradient(
+    -45deg, var(--teal), var(--teal) 10px, #42605b 10px, #42605b 20px);
+  transition: width 0.15s linear;
+}
+.verifier-status { margin-top: 0.7rem; font-size: 0.85rem; color: var(--ink-soft); }
+.verifier-pitch { margin-top: 0.25rem; font-size: 0.75rem; color: var(--ash); min-height: 1em; }
+
+#btn-giveup { margin-top: 1.6rem; font-size: 0.75rem; }
+
+/* ---------- done ---------- */
+.done-card {
+  border: 2px solid var(--ink);
+  padding: 2.5rem 1.5rem;
+  background: var(--paper-dark);
+  box-shadow: 6px 6px 0 var(--shadow);
+}
+.done-big { font-size: 1.3rem; }
+.done-card .btn { margin-top: 1.5rem; }
+
+/* ---------- footer ---------- */
+.foot {
+  margin-top: 3rem;
+  font-size: 0.65rem;
+  color: var(--ash);
+  letter-spacing: 0.1em;
+}
